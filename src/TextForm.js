@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 const TextForm = (props) => {
   const [text, setText] = useState("Enter the Text");
+  const [isUpperCaseButton, setIsUpperCaseButton] = useState(true);
 
   const handleUpClick = (event) => {
     // const upperCaseText = text.toLocaleUpperCase();
@@ -25,6 +26,18 @@ const TextForm = (props) => {
   // Inn another way
   const handleOnChange = (event) => setText(event.target.value);
 
+  const handleMainButton = () => {
+    let textValue = text;
+
+    isUpperCaseButton
+      ? (textValue = text.toUpperCase())
+      : (textValue = text.toLowerCase());
+
+    setText(textValue);
+    setIsUpperCaseButton(!isUpperCaseButton);
+    // setIsUpperCaseButton(isUpperCaseButton ? false : true);
+  };
+
   return (
     <>
       <h1>{props.heading}</h1>
@@ -46,6 +59,13 @@ const TextForm = (props) => {
       </button>
       <button className="btn btn-secondary ml-3" onClick={handleLcClick}>
         Convert to Lowercase
+      </button>
+       {/* Both Functionality at one place  */}
+       <button
+        className={isUpperCaseButton ? "btn btn-primary" : "btn btn-secondary"}
+        onClick={handleMainButton}
+      >
+        {isUpperCaseButton ? "Convert to Uppercase" : "Convert to Lowercase"}
       </button>
     </>
   );
