@@ -26,6 +26,12 @@ const TextForm = (props) => {
 
     return textValue.length && textValue.split(" ").length;
   };
+
+  const handleCopy = () => {
+    let text = document.getElementById("myBox");
+    text.select();
+    navigator.clipboard.writeText(text.value);
+  };
   // const handleOnChange = (event) => {
   //     setText(event.target.value);
   //     // console.log("On Changed");
@@ -48,7 +54,10 @@ const TextForm = (props) => {
 
   return (
     <>
-      <div className="container">
+      <div
+        className="container"
+        style={{ color: props.mode === "dark" ? "white" : "#042743" }}
+      >
         <h1>{props.heading}</h1>
         <div className="mb-3">
           <label htmlFor="myBox" className="form-label"></label>
@@ -56,6 +65,10 @@ const TextForm = (props) => {
             // OnChange - To type text in textarea
             onChange={handleOnChange}
             className="form-control"
+            style={{
+              backgroundColor: props.mode === "dark" ? "grey" : "white",
+              color: props.mode === "dark" ? "white" : "#042743",
+            }}
             value={text}
             placeholder="Leave a message here"
             id="myBox"
@@ -70,10 +83,6 @@ const TextForm = (props) => {
           Convert to Lowercase
         </button>
 
-        <button className="btn btn-dark mx-2" onClick={handleClearClick}>
-          Clear
-        </button>
-
         {/* Both Functionality at one place  */}
         <button
           className={isUpperCaseButton ? "btn btn-danger" : "btn btn-info"}
@@ -81,15 +90,26 @@ const TextForm = (props) => {
         >
           {isUpperCaseButton ? "Convert to Uppercase" : "Convert to Lowercase"}
         </button>
+
+        <button className="btn btn-success mx-2" onClick={handleCopy}>
+          Copy Text
+        </button>
+
+        <button className="btn btn-dark mx-2" onClick={handleClearClick}>
+          Clear
+        </button>
       </div>
-      <div className="container my-2">
+      <div
+        className="container my-2"
+        style={{ color: props.mode === "dark" ? "white" : "#042743" }}
+      >
         <h1>Your Text Summary</h1>
         <p>
           {getTextLength()} words and {text.length} characters
         </p>
         <p>{0.008 * getTextLength()} Minutes to Read</p>
         <h2>Preview</h2>
-        <p>{text}</p>
+        <p>{text.length > 0 ? text : "Enter something to preview here."}</p>
       </div>
     </>
   );
