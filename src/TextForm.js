@@ -17,6 +17,10 @@ const TextForm = (props) => {
     setText(LowerCaseText);
     // console.log("Clicked" + text);
   };
+  const handleClearClick = (event) => {
+    const text = "";
+    setText(text);
+  };
   const getTextLength = () => {
     let textValue = text.trim().replace(/\s+/g, " ");
 
@@ -65,9 +69,14 @@ const TextForm = (props) => {
         <button className="btn btn-secondary mx-2" onClick={handleLcClick}>
           Convert to Lowercase
         </button>
+
+        <button className="btn btn-dark mx-2" onClick={handleClearClick}>
+          Clear
+        </button>
+
         {/* Both Functionality at one place  */}
         <button
-          className={isUpperCaseButton ? "btn btn-primary" : "btn btn-danger"}
+          className={isUpperCaseButton ? "btn btn-danger" : "btn btn-info"}
           onClick={handleMainButton}
         >
           {isUpperCaseButton ? "Convert to Uppercase" : "Convert to Lowercase"}
