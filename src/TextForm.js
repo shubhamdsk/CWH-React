@@ -5,39 +5,35 @@ const TextForm = (props) => {
   const [isUpperCaseButton, setIsUpperCaseButton] = useState(true);
 
   const handleUpClick = (event) => {
-    // const upperCaseText = text.toLocaleUpperCase();
     let upperCaseText = text.toUpperCase();
     setText(upperCaseText);
-    // console.log("Clicked" + text);
+    props.showAlert("Converted to uppercase", "success");
   };
 
   const handleLcClick = (event) => {
-    const LowerCaseText = text.toLocaleLowerCase();
-    // let LowerCaseText = text.toLowerCase();
-    setText(LowerCaseText);
-    // console.log("Clicked" + text);
+    const lowerCaseText = text.toLowerCase();
+    setText(lowerCaseText);
+    props.showAlert("Converted to lowercase", "success");
   };
+
   const handleClearClick = (event) => {
-    const text = "";
-    setText(text);
+    const clearedText = "";
+    setText(clearedText);
+    props.showAlert("Text has been cleared", "success");
   };
+
   const getTextLength = () => {
     let textValue = text.trim().replace(/\s+/g, " ");
-
     return textValue.length && textValue.split(" ").length;
   };
 
   const handleCopy = () => {
-    let text = document.getElementById("myBox");
-    text.select();
-    navigator.clipboard.writeText(text.value);
+    let textArea = document.getElementById("myBox");
+    textArea.select();
+    navigator.clipboard.writeText(textArea.value);
+    props.showAlert("Text copied to clipboard", "success");
   };
-  // const handleOnChange = (event) => {
-  //     setText(event.target.value);
-  //     // console.log("On Changed");
-  // };
 
-  // Inn another way
   const handleOnChange = (event) => setText(event.target.value);
 
   const handleMainButton = () => {
@@ -49,7 +45,12 @@ const TextForm = (props) => {
 
     setText(textValue);
     setIsUpperCaseButton(!isUpperCaseButton);
-    // setIsUpperCaseButton(isUpperCaseButton ? false : true);
+
+    const alertMessage = isUpperCaseButton
+      ? "Converted to Uppercase"
+      : "Converted to Lowercase";
+    const alertType = "success";
+    props.showAlert(alertMessage, alertType);
   };
 
   return (
@@ -62,7 +63,6 @@ const TextForm = (props) => {
         <div className="mb-3">
           <label htmlFor="myBox" className="form-label"></label>
           <textarea
-            // OnChange - To type text in textarea
             onChange={handleOnChange}
             className="form-control"
             style={{
@@ -83,7 +83,6 @@ const TextForm = (props) => {
           Convert to Lowercase
         </button>
 
-        {/* Both Functionality at one place  */}
         <button
           className={isUpperCaseButton ? "btn btn-danger" : "btn btn-info"}
           onClick={handleMainButton}
