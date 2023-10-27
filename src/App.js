@@ -41,7 +41,7 @@ function App() {
     }
   };
   return (
-    <BrowserRouter >
+    <BrowserRouter basename="/">
       {/* <Navbar title = "TextUtils" aboutText = "About Us"/> */}
       {/* <Navbar/> */}
       <Navbar title="TextUtils" mode={mode} toggleMode={toggleMode} />
